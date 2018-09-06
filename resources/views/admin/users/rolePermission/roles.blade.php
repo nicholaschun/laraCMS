@@ -1,34 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    @include ('admin.includes.head')
-</head>
-
-<body>
-
-<div id="page-wrapper">
-
-    <!-- Top Bar Start -->
-    <div class="topbar">
-        <!-- Top navbar -->
-    @include('admin.includes.topBar')
-    <!-- end navbar -->
-    </div>
-    <!-- Top Bar End -->
-
-    <!-- Page content start -->
-    <div id="app">
-        <div class="page-contentbar">
-
-            <!--left navigation start-->
-            <aside class="sidebar-navigation">
-                @include('admin.includes.side')
-            </aside>
-            <!--left navigation end-->
-
-            <!-- START PAGE CONTENT -->
-            <div>
+@extends('layouts.adminLayout')
+@section('content')
+    <div>
                 <div id="page-right-content">
                     <div class="container">
                         <div class="row main-content"  style="padding: 0 30px 0 30px">
@@ -52,8 +24,8 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>Super Admin</td>
+                                                            <tr v-for="roles in allUserRoles">
+                                                                <td>@{{ roles.name }}</td>
                                                                 <td>
                                                                     <button type="button" data-toggle="modal" data-target="#editRoleModal" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
                                                                     <button type="button" data-toggle="modal" data-target="#confirmDeleteModal" class="btn btn-default btn-xs"><span class="fa fa-trash-o"></span></button>
@@ -119,16 +91,6 @@
                     <!-- end container -->
                 </div>
             </div>
-            <!-- End #page-right-content -->
-
-            <div class="clearfix"></div>
-            @include('admin.includes.modals')
-        </div>
-    </div>
-    <!-- end .page-contentbar -->
-</div>
-<!-- End #page-wrapper -->
-@include ('admin.includes.scripts')
-</body>
-
-</html>
+    <div class="clearfix"></div>
+    @include('admin.includes.modals')
+@endsection

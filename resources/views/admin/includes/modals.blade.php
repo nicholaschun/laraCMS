@@ -10,14 +10,14 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="field-1" class="control-label">Role Name</label>
-                            <input type="text" class="form-control" id="field-1" placeholder="John">
+                            <input type="text" v-model="userRole.role_name" required  class="form-control" id="field-1" placeholder="John">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-info waves-effect waves-light">Save changes</button>
+                <button type="submit" @click="addRole" class="btn btn-info waves-effect waves-light">Save changes</button>
             </div>
         </div>
     </div>

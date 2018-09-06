@@ -22,6 +22,10 @@ Route::get('/cc-admin', 'PagesController@adminLogin');
 Route::get('/cc-dashboard', 'PagesController@getDashboard');
 Route::post('/cc-admin/login-admin', 'AdminController@postAdmin');
 
+//User Management Routes
+Route::post('/addUserRole', 'UserManagementController@addNewRole');
+Route::get('/getUserRoles', 'UserManagementController@getUserRoles');
+
 /*homeSlider Routes */
 Route::resource('admin/homeSlider', 'SliderController');
 
