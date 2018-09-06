@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +25,7 @@ class ConnectDb
         $this->setEnv('DB_DATABASE', $request['dbName']);
         $this->setEnv('DB_USERNAME', $request['dbUser']);
         $this->setEnv('DB_PASSWORD', $dbPassword);
-        $this->setEnv('APP_NAME', $request['projectName']);
+        $this->runMigration();
     }
 
 
@@ -37,4 +38,10 @@ class ConnectDb
         $fp = fopen($envFile, 'w');
         fwrite($fp, $str);
         fclose($fp);
-    }}
+    }
+
+
+    public function runMigration(){
+        Artisan::call('migrate');
+    }
+}

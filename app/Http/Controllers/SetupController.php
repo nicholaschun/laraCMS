@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ConnectDb;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 
 class SetupController extends Controller
 {
@@ -28,13 +31,25 @@ class SetupController extends Controller
     }
 
     public function postGetStarted(Request $request){
+
         $this->validate($request, [
-            'projectName' => 'required',
-            'email' => 'required|email',
+            'name' => 'required',
             'dbName' => 'required',
             'dbUser' => 'required',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:6',
         ]);
+
         $this->connectDb->createDb($request);
-        return view('themes.laraBlog.index');
+        $this->registerUser($request);
+        return view('index');
+    }
+
+    public  function registerUser($data){
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
     }
 }

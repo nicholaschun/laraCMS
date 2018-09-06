@@ -29,3 +29,7 @@ Route::resource('admin/homeSlider', 'SliderController');
 Route::resource('admin/posts', 'PostController');
 Route::get('admin/users/roles', 'UsersController@getRoles');
 Route::resource('admin/users', 'UsersController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

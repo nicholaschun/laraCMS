@@ -69,28 +69,22 @@
 </head>
 <body>
 <div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-                <a href="{{ url('/home') }}">Home</a>
-            @else
-                <a href="{{ route('login') }}">Login</a>
-                <a href="{{ route('register') }}">Register</a>
-            @endauth
-        </div>
-    @endif
-
     <div class="content">
         <div class="setup-content">
             <h4>Few Details about your application</h4>
             <br>
             <div class="setup-form col-md-12" style="margin: 0 auto">
+                @if(count($errors) > 0)
+                    <div class="alert alert-danger error-msg delay">
+                        <p ><i class="fa fa-warning"> </i> <span>{{$errors->first()}}</span></p>
+                    </div>
+                @endif
                     <form action="{{url('getStarted')}}" method="POST">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="form-group col-md-10">
                                 <label for="name">Project Name <span class="required-field">*</span></label>
-                                <input type="text" name="projectName" value="test" required placeholder="Enter name of project">
+                                <input type="text" name="name" value="test" required placeholder="Enter name of project">
                             </div>
                         </div>
                         <div class="row">
@@ -108,19 +102,19 @@
                         <div class="row">
                             <div class="form-group col-md-10">
                                 <label for="name">Database user <span class="required-field">*</span></label>
-                                <input type="text" name="dbUser" value="testUser" required placeholder="Username">
+                                <input type="text" name="dbUser" value="root" required placeholder="Username">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-10">
                                 <label for="name">Database password </label>
-                                <input type="password" name="dbPass" value="nicklas" placeholder="DB Password">
+                                <input type="password" name="dbPass" value="" placeholder="DB Password">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-10">
                                 <label for="name">Dashboard password <span class="required-field">*</span></label>
-                                <input required name="dashPassword" value="nickals" type="password" placeholder="Enter admin password">
+                                <input required name="password" value="nickals" type="password" placeholder="Enter admin password">
                             </div>
                         </div>
                         <div class="row">
