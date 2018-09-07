@@ -3,7 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-import {addUserRole, baseUrl, getUserRoles} from "./urls";
+import {addUserRole, baseUrl, deleteUserRoles, getUserRoles, updateUserRoles} from "./urls";
 
 
 require('./bootstrap');
@@ -24,11 +24,16 @@ const app = new Vue({
     data(){
         return{
             userRole,
-            allUserRoles:[]
+            allUserRoles:[],
+            editRoles:{id:'',role_name:''},
+            deleteRoles:{id:''},
+            userPermissions:[],
+            userPermission:{name:''}
         }
     },
     created(){
       this.getUserRoles()
+      this.getUserPermissions()
     },
     methods: {
         addRole() {
@@ -44,6 +49,50 @@ const app = new Vue({
         getUserRoles() {
             axios.get(getUserRoles).then((res) => {
                 this.allUserRoles = res.data
+            })
+        },
+        editUserRoles(role) {
+            this.editRoles.id = role.id
+            this.editRoles.role_name = role.name
+        },
+        updateUserRoles(id) {
+            axios.post(updateUserRoles + '/' + id, this.editRoles).then((res) => {
+                toastr.success('User Role updated Successfully.', 'Success Alert', {timeOut: 5000});
+                this.editRoles.role_name = ''
+                this.editRoles.id = ''
+                $('#addRoleModal').modal('hide')
+                this.getUserRoles()
+            }).catch((err) => {
+                console.log(err)
+            })
+        },
+        confirmDeleteRoles(id){
+            this.deleteRoles.id = id
+            $("#confirmDeleteModal").modal('show')
+        },
+        deleteUserRole(){
+            axios.post(deleteUserRoles , this.deleteRoles).then((res) => {
+                toastr.success('User Role deleted Successfully.', 'Success Alert', {timeOut: 5000});
+                this.deleteRoles.id = ''
+                $('#confirmDeleteModal').modal('hide')
+                this.getUserRoles()
+            }).catch((err) => {
+                console.log(err)
+            })
+        },
+        getUserPermissions() {
+            axios.get(getPermissions).then((res) => {
+                this.userPermissions = res.data
+            })
+        },
+        addUserPermission() {
+            axios.post(addUserPermission, this.userPermission).then((res) => {
+                toastr.success('User Permission Created Successfully.', 'Success Alert', {timeOut: 5000});
+                this.userPermission.name = ''
+                $('#addPermissionModal').modal('hide')
+                this.getUserPermissions()
+            }).catch((err) => {
+                console.log(err)
             })
         }
     }

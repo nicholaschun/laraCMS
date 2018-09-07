@@ -25,6 +25,11 @@ Route::post('/cc-admin/login-admin', 'AdminController@postAdmin');
 //User Management Routes
 Route::post('/addUserRole', 'UserManagementController@addNewRole');
 Route::get('/getUserRoles', 'UserManagementController@getUserRoles');
+Route::post('/updateUserRoles/{id}', 'UserManagementController@updateUserRoles');
+Route::post('/deleteUserRoles/{id}', 'UserManagementController@deleteUserRoles');
+
+Route::get('/getUserPermissions', 'UserManagementController@getUserPermissions');
+Route::post('/addUserPermissions', 'UserManagementController@addUserPermissions');
 
 /*homeSlider Routes */
 Route::resource('admin/homeSlider', 'SliderController');

@@ -4,7 +4,6 @@
                 <div id="page-right-content">
                     <div class="container">
                         <div class="row main-content"  style="padding: 0 30px 0 30px">
-
                             <span><i class="ti ti-angle-left"></i><a href="{{url('admin/users')}}">All users</a></span>
                             <br>
                             <form method="post"  enctype="multipart/form-data" >
@@ -27,8 +26,8 @@
                                                             <tr v-for="roles in allUserRoles">
                                                                 <td>@{{ roles.name }}</td>
                                                                 <td>
-                                                                    <button type="button" data-toggle="modal" data-target="#editRoleModal" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
-                                                                    <button type="button" data-toggle="modal" data-target="#confirmDeleteModal" class="btn btn-default btn-xs"><span class="fa fa-trash-o"></span></button>
+                                                                    <button type="button" @click="editUserRoles(roles)" data-toggle="modal" data-target="#editRoleModal" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
+                                                                    <button type="button" @click="confirmDeleteRoles(roles.id)" class="btn btn-default btn-xs"><span class="fa fa-trash-o"></span></button>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -41,6 +40,7 @@
 
                                     <div class="col-lg-8 m-t-10 products-details">
                                         <div class="col-lg-12 product-entity">
+                                            <span class="pull-left"><button type="button" data-toggle="modal" data-target="#addPermissionModal" class="btn btn-danger btn-sm" >Create Permission</button></span>
                                             <div class="row">
                                                 <div class="col-lg-4 pull-right">
                                                     <select name="" class="form-control input-sm" id="">
@@ -62,13 +62,8 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td>Create Admin</td>
-                                                            <td><div class="radio-primary"><input  type="radio" name="perm1"></div></td>
-                                                            <td><div class="radio-primary"><input  type="radio" name="perm1"></div></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Create Post</td>
+                                                        <tr v-for="permissions in userPermissions">
+                                                            <td>@{{ permissions.name }}</td>
                                                             <td><div class="radio-primary"><input  type="radio" name="perm1"></div></td>
                                                             <td><div class="radio-primary"><input  type="radio" name="perm1"></div></td>
                                                         </tr>
