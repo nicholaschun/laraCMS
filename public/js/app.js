@@ -990,7 +990,6 @@ window.Vue = __webpack_require__(35);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
 Vue.component('example-component', __webpack_require__(38));
 
 
@@ -1003,19 +1002,23 @@ var app = new Vue({
             editRoles: { id: '', role_name: '' },
             deleteRoles: { id: '' },
             userPermissions: [],
-            userPermission: { name: '' }
+            userPermission: { name: '' },
+            user: { name: '', email: '', role: '' },
+            admins: [],
+            editUser: { id: '', name: '', email: '', role: '' }
         };
     },
     created: function created() {
         this.getUserRoles();
         this.getUserPermissions();
+        this.getUsers();
     },
 
     methods: {
         addRole: function addRole() {
             var _this = this;
 
-            axios.post(__WEBPACK_IMPORTED_MODULE_0__urls__["a" /* addUserRole */], __WEBPACK_IMPORTED_MODULE_1__controls__["a" /* default */]).then(function (res) {
+            axios.post(__WEBPACK_IMPORTED_MODULE_0__urls__["c" /* addUserRole */], __WEBPACK_IMPORTED_MODULE_1__controls__["a" /* default */]).then(function (res) {
                 toastr.success('User Role Created Successfully.', 'Success Alert', { timeOut: 5000 });
                 __WEBPACK_IMPORTED_MODULE_1__controls__["a" /* default */].role_name = '';
                 $('#addRoleModal').modal('hide');
@@ -1027,7 +1030,7 @@ var app = new Vue({
         getUserRoles: function getUserRoles() {
             var _this2 = this;
 
-            axios.get(__WEBPACK_IMPORTED_MODULE_0__urls__["c" /* getUserRoles */]).then(function (res) {
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__urls__["f" /* getUserRoles */]).then(function (res) {
                 _this2.allUserRoles = res.data;
             });
         },
@@ -1038,7 +1041,7 @@ var app = new Vue({
         updateUserRoles: function updateUserRoles(id) {
             var _this3 = this;
 
-            axios.post(__WEBPACK_IMPORTED_MODULE_0__urls__["d" /* updateUserRoles */] + '/' + id, this.editRoles).then(function (res) {
+            axios.post(__WEBPACK_IMPORTED_MODULE_0__urls__["h" /* updateUserRoles */] + '/' + id, this.editRoles).then(function (res) {
                 toastr.success('User Role updated Successfully.', 'Success Alert', { timeOut: 5000 });
                 _this3.editRoles.role_name = '';
                 _this3.editRoles.id = '';
@@ -1055,7 +1058,7 @@ var app = new Vue({
         deleteUserRole: function deleteUserRole() {
             var _this4 = this;
 
-            axios.post(__WEBPACK_IMPORTED_MODULE_0__urls__["b" /* deleteUserRoles */], this.deleteRoles).then(function (res) {
+            axios.post(__WEBPACK_IMPORTED_MODULE_0__urls__["d" /* deleteUserRoles */], this.deleteRoles).then(function (res) {
                 toastr.success('User Role deleted Successfully.', 'Success Alert', { timeOut: 5000 });
                 _this4.deleteRoles.id = '';
                 $('#confirmDeleteModal').modal('hide');
@@ -1067,32 +1070,48 @@ var app = new Vue({
         getUserPermissions: function getUserPermissions() {
             var _this5 = this;
 
-            axios.get(getPermissions).then(function (res) {
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__urls__["e" /* getPermissions */]).then(function (res) {
                 _this5.userPermissions = res.data;
             });
         },
-        addUserPermission: function (_addUserPermission) {
-            function addUserPermission() {
-                return _addUserPermission.apply(this, arguments);
-            }
-
-            addUserPermission.toString = function () {
-                return _addUserPermission.toString();
-            };
-
-            return addUserPermission;
-        }(function () {
+        addUserPermission: function addUserPermission() {
             var _this6 = this;
 
-            axios.post(addUserPermission, this.userPermission).then(function (res) {
+            axios.post(__WEBPACK_IMPORTED_MODULE_0__urls__["b" /* addUserPermission */], this.userPermission).then(function (res) {
                 toastr.success('User Permission Created Successfully.', 'Success Alert', { timeOut: 5000 });
                 _this6.userPermission.name = '';
-                $('#addPermissionModal').modal('hide');
+                document.getElementById('addPermissionModal').style.display = 'none';
                 _this6.getUserPermissions();
             }).catch(function (err) {
                 console.log(err);
             });
-        })
+        },
+        addUser: function addUser() {
+            var _this7 = this;
+
+            axios.post(__WEBPACK_IMPORTED_MODULE_0__urls__["a" /* addUser */], this.user).then(function (res) {
+                toastr.success('User Created Successfully', { timeOut: 5000 });
+                _this7.getUsers();
+                _this7.user.name = '', _this7.user.password = '', _this7.user.role = '';
+                document.getElementById('addUserModal').style.display = 'none';
+            }).catch(function (err) {
+                console.log(err);
+            });
+        },
+        getUsers: function getUsers() {
+            var _this8 = this;
+
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__urls__["g" /* getUsers */]).then(function (res) {
+                _this8.admins = res.data;
+            });
+        },
+        editUsers: function editUsers(users) {
+            console.log(users);
+            this.editUser.name = users.name;
+            this.editUser.id = users.id;
+            this.editUser.role = users.role;
+            this.editUser.email = users.email;
+        }
     }
 
 });
@@ -48553,21 +48572,27 @@ var index_esm = {
 
 "use strict";
 /* unused harmony export baseUrl */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addUserRole; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getUserRoles; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return updateUserRoles; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return deleteUserRoles; });
-/* unused harmony export getPermissions */
-/* unused harmony export addUserPermission */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return addUserRole; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getUserRoles; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return updateUserRoles; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return deleteUserRoles; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getPermissions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return addUserPermission; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getUsers; });
 var baseUrl = 'http://localhost:8000/';
 var addUserRole = baseUrl + 'addUserRole';
 var getUserRoles = baseUrl + 'getUserRoles';
 var updateUserRoles = baseUrl + 'updateUserRoles';
 var deleteUserRoles = baseUrl + 'deleteUserRoles';
 
-//Permissions
+/* Permissions */
 var getPermissions = baseUrl + 'getUserPermissions';
 var addUserPermission = baseUrl + 'addUserPermissions';
+
+/* users */
+var addUser = baseUrl + 'addNewUser';
+var getUsers = baseUrl + 'getUsers';
 
 /***/ })
 /******/ ]);

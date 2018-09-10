@@ -2472,8 +2472,11 @@ h3.timeline-title {
 
 .required-field{
   color: #bf2f36;
+  background: #f2bf32;
 }
-
+.modal{
+  display: none;
+}
 
 
 

@@ -3,7 +3,15 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-import {addUserRole, baseUrl, deleteUserRoles, getUserRoles, updateUserRoles} from "./urls";
+import {
+    addUserRole,
+    baseUrl,
+    deleteUserRoles,
+    getUserRoles,
+    updateUserRoles,
+    addUserPermission,
+    getPermissions, addUser, getUsers
+} from "./urls";
 
 
 require('./bootstrap');
@@ -15,7 +23,6 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 import userRole from './controls'
 import './urls'
@@ -28,12 +35,16 @@ const app = new Vue({
             editRoles:{id:'',role_name:''},
             deleteRoles:{id:''},
             userPermissions:[],
-            userPermission:{name:''}
+            userPermission:{name:''},
+            user:{name:'',email:'',role:''},
+            admins:[],
+            editUser:{id:'', name:'', email:'', role:''}
         }
     },
     created(){
       this.getUserRoles()
       this.getUserPermissions()
+      this.getUsers()
     },
     methods: {
         addRole() {
@@ -89,11 +100,35 @@ const app = new Vue({
             axios.post(addUserPermission, this.userPermission).then((res) => {
                 toastr.success('User Permission Created Successfully.', 'Success Alert', {timeOut: 5000});
                 this.userPermission.name = ''
-                $('#addPermissionModal').modal('hide')
+                document.getElementById('addPermissionModal').style.display = 'none'
                 this.getUserPermissions()
             }).catch((err) => {
                 console.log(err)
             })
+        },
+        addUser(){
+            axios.post(addUser, this.user).then((res)=> {
+                toastr.success('User Created Successfully', {timeOut: 5000});
+                this.getUsers()
+                this.user.name = '',
+                this.user.password = '',
+                this.user.role = ''
+                document.getElementById('addUserModal').style.display = 'none'
+            }).catch((err) => {
+                console.log(err)
+            })
+        },
+        getUsers(){
+            axios.get(getUsers).then((res)=>{
+                this.admins = res.data
+            })
+        },
+        editUsers(users){
+            console.log(users)
+            this.editUser.name = users.name
+            this.editUser.id = users.id
+            this.editUser.role = users.role
+            this.editUser.email = users.email
         }
     }
 

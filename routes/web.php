@@ -39,6 +39,10 @@ Route::resource('admin/posts', 'PostController');
 Route::get('admin/users/roles', 'UsersController@getRoles');
 Route::resource('admin/users', 'UsersController');
 
+/*Add new user */
+Route::post('addNewUser', 'UsersController@addNewUser');
+Route::get('getUsers', 'UsersController@getUsers');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

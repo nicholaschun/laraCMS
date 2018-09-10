@@ -40,7 +40,6 @@
 
                                     <div class="col-lg-8 m-t-10 products-details">
                                         <div class="col-lg-12 product-entity">
-                                            <span class="pull-left"><button type="button" data-toggle="modal" data-target="#addPermissionModal" class="btn btn-danger btn-sm" >Create Permission</button></span>
                                             <div class="row">
                                                 <div class="col-lg-4 pull-right">
                                                     <select name="" class="form-control input-sm" id="">
@@ -57,15 +56,16 @@
                                                         <thead>
                                                         <tr>
                                                             <th>Permission</th>
-                                                            <th>Allow</th>
-                                                            <th>Deny</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
                                                         <tr v-for="permissions in userPermissions">
                                                             <td>@{{ permissions.name }}</td>
-                                                            <td><div class="radio-primary"><input  type="radio" name="perm1"></div></td>
-                                                            <td><div class="radio-primary"><input  type="radio" name="perm1"></div></td>
+                                                            <td>
+                                                                <button type="button" @click="editUserPermission(permissions)" data-toggle="modal" data-target="#editRoleModal" class="btn btn-default btn-xs"><span class="fa fa-pencil"></span></button>
+                                                                <button type="button" @click="confirmDeletePermission(permissions.id)" class="btn btn-default btn-xs"><span class="fa fa-trash-o"></span></button>
+                                                            </td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -75,6 +75,48 @@
                                         </div>
                                     </div>
 
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="row m-t-10">
+                                    <div class="col-lg-12 m-t-10 products-details">
+                                        <div class="col-lg-12 product-entity">
+                                            <div class="row">
+                                                <div class="col-lg-4 pull-right">
+                                                    <select name="" class="form-control input-sm" id="">
+                                                        <option value="">Super Admin</option>
+                                                        <option value="">Author</option>
+                                                        <option value="">Editor</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="col-lg-12 form-group m-b-20">
+                                                <div class="table-responsive">
+                                                    <table class="table m-0 table-striped">
+                                                        <thead style="background: #c3c3c3">
+                                                        <tr>
+                                                            <th>Permission</th>
+                                                            <th>Allow</th>
+                                                            <th>Deny</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr v-for="permissions in userPermissions">
+                                                            <td>@{{ permissions.name }}</td>
+                                                            <td>
+                                                                <div><input type="radio" name="allow"></div>
+                                                            </td>
+                                                            <td>
+                                                                <div><input type="radio" name="allow"></div>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-3 m-t-30">
                                     <span ><input type="submit" value="Save Changes" id="buttonSubmit" class="btn btn-primary btn-block"></span>

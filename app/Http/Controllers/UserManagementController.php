@@ -38,7 +38,8 @@ class UserManagementController extends Controller
 
     public function addUserPermissions(Request $request){
         $permission = Permission::create([
-            'name' =>$request['name']
+            'name' =>$request['name'],
+            'slug' =>strtolower($request['name'])
         ]);
         return $permission;
     }
